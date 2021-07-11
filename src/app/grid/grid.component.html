@@ -1,0 +1,163 @@
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+              <div class="col-10" style="z-index: 2;">
+                <h5 class="card-title">Customers</h5>
+                </div>
+                <div class="col-1" style="z-index: 2;">
+              <button class="btn btn-primary" (click)="open(content)">Customer</button>
+              </div>
+              </div>
+              <dx-data-grid  #grid
+              id="gridContainer"
+              style="height: 70vh; margin-top: -50px;"
+              [dataSource]="customers"
+              keyExpr="ID"
+              [columns]="['CompanyName', 'City', 'State', 'Phone', 'Fax']" 
+              [showBorders]="true"
+              [hoverStateEnabled]="true"
+              [selectedRowKeys]="[]"
+              >
+              <dxo-selection mode="single"></dxo-selection>
+              <dxo-scrolling 
+              rowRenderingMode="virtual">
+          </dxo-scrolling>
+          <dxo-editing 
+          mode="row"
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+          [allowAdding]="true">
+     </dxo-editing>
+          <dxi-column
+          dataField="CompanyName"
+          headerCellTemplate="<div style='color:#0055a5; font-weight: 600;'>Company</div>">
+      </dxi-column>
+      <dxi-column
+          dataField="City"
+          headerCellTemplate="<div style='color:#0055a5; font-weight: 600; '>City</div>">
+      </dxi-column>
+      <dxi-column
+          dataField="State"
+          headerCellTemplate="<div style='color:#0055a5; font-weight: 600;'>State</div>">
+      </dxi-column>
+      <dxi-column
+          dataField="Phone"
+          headerCellTemplate="<div style='color:#0055a5; font-weight: 600;'>Phone</div>">
+      </dxi-column>
+      <dxi-column
+          dataField="Fax"
+          headerCellTemplate="<div style='color:#0055a5; font-weight: 600;'>Fax</div>">
+      </dxi-column>
+      <dxi-column
+      dataField="Zipcode"
+      headerCellTemplate="<div style='color:#0055a5; font-weight: 600;'>Zipcode</div>">
+    </dxi-column>
+    <dxi-column
+    dataField="Website"
+    headerCellTemplate="<div style='color:#0055a5; font-weight: 600;'>Website</div>">
+    </dxi-column>
+          <dxo-paging 
+              [pageSize]="20">
+          </dxo-paging>
+          <dxo-pager 
+              [visible]="true" 
+              [allowedPageSizes]="allowedPageSizes" 
+              [displayMode]="displayMode"
+              [showPageSizeSelector]="showPageSizeSelector" 
+              [showInfo]="showInfo" 
+              [showNavigationButtons]="showNavButtons">
+          </dxo-pager>
+             </dx-data-grid>
+             <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="col-8">
+                        <label for="name">Name</label>
+                        <input id="name" class="form-control" placeholder="name" name="name">
+                        </div>
+                        <div class="col-8">
+                        <label for="role">Role</label>
+                        <input id="role" class="form-control" placeholder="Role" name="role">
+                        </div>
+                        <div class="col-8">
+                        <label for="category">Category</label>
+                        <input id="Category" class="form-control" placeholder="category" name="category">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                </div>
+              </ng-template>
+                        
+              <pre>{{ closeResult }}</pre>
+            </div>
+          </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Customers Details</h5>
+              <div style="margin-top: 10%;"  *ngIf="grid.selectedRowKeys.length">
+              <div class="row"  >
+                  <div class=" card-label col-4 ">Company</div>
+                  <div class="col-8 card-data"> 
+                   {{grid.instance.getSelectedRowsData()[0].CompanyName}}
+                 </div>
+                 </div>
+                <hr style="color: #b3b7bb">
+                <div class="row">  
+                <div class=" card-label col-4">City</div>
+                  <div class="col-8 card-data">
+                    {{grid.instance.getSelectedRowsData()[0].City}}
+                  </div>
+                  </div>
+                  <hr style="color: #b3b7bb">
+                  <div class="row">
+                  <div class="col-4 card-label">State</div><div class="col-8 card-data">
+                    {{grid.instance.getSelectedRowsData()[0].State}}
+                  </div>
+                  </div>
+                  <hr style="color: #b3b7bb">
+                  <div class="row">
+                  <div class="col-4 card-label">Phone</div><div class="col-8 card-data">
+                    {{grid.instance.getSelectedRowsData()[0].Phone}}
+                  </div>
+                  </div>
+                  <hr style="color: #b3b7bb">
+                  <div class="row">
+                  <div class="col-4 card-label">Fax</div>  <div class="col-8 card-data">
+                    {{grid.instance.getSelectedRowsData()[0].Fax}}
+                  </div>
+                  </div>
+                  <hr style="color: #b3b7bb">
+                  <div class="row">
+                  <div class="col-4 card-label">Zipcode</div>  <div class="col-8 card-data">
+                    {{grid.instance.getSelectedRowsData()[0].Zipcode}}
+                  </div>
+                  </div>
+                  <hr style="color: #b3b7bb">
+                  <div class="row">
+                  <div class="col-4 card-label">Website</div>  <div class="col-8 card-data">
+                    {{grid.instance.getSelectedRowsData()[0].Website}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    </div>
+    </div>
